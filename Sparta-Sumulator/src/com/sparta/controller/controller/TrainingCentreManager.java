@@ -1,4 +1,6 @@
-import model.TrainingCentre;
+package com.sparta.controller.controller;
+
+import com.sparta.controller.model.TrainingCentre;
 
 import java.util.ArrayList;
 

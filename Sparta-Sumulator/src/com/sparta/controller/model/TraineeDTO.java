@@ -1,4 +1,4 @@
-package model;
+package com.sparta.controller.model;
 
 public interface TraineeDTO {
     String getState();

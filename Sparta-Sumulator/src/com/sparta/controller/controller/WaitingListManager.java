@@ -1,4 +1,6 @@
-import model.TraineeDTO;
+package com.sparta.controller.controller;
+
+import com.sparta.controller.model.TraineeDTO;
 
 import java.util.ArrayList;
 
