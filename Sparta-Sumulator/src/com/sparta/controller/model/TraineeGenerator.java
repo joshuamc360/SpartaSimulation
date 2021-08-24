@@ -3,5 +3,5 @@ package com.sparta.controller.model;
 import java.util.ArrayList;
 
 public interface TraineeGenerator {
-    ArrayList<TraineeDTO> generateTrainee(int numOfTraineeToGenerate);
+    ArrayList<Trainee> generateTrainee(int numOfTraineeToGenerate);
 }
