@@ -3,6 +3,6 @@ package model;
 import java.util.ArrayList;
 
 public interface WaitingList {
-    pop(ArrayList TraineeList);
-    push(ArrayList TraineeList);
+    TraineeDTO pop(ArrayList TraineeList);
+    void push(ArrayList TraineeList, TraineeDTO traineeDTO);
 }
