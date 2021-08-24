@@ -1,3 +1,5 @@
+import model.TrainingCentre;
+
 import java.util.ArrayList;
 
 public interface TrainingCentreManager {

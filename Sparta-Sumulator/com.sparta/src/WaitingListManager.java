@@ -1,3 +1,5 @@
+import model.TraineeDTO;
+
 import java.util.ArrayList;
 
 public interface WaitingListManager {
