@@ -1,4 +1,4 @@
-package com.sparta.92;
+package com.sparta.sdets;
 
 /**
  * Hello world!
