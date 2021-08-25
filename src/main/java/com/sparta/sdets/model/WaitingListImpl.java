@@ -9,25 +9,25 @@ public class WaitingListImpl{
     //not sure
     private WaitingListImpl(){}
 
-    public static WaitingListImpl getWaitingList(){
+    public static WaitingListImpl getWaitingListObj(){
         if(waitingListObject == null){
             waitingListObject = new WaitingListImpl ();
         }
         return waitingListObject ;
     }
 
-    public static Trainee pop(ArrayList<Trainee> TraineeList) {
+    public Trainee pop(ArrayList<Trainee> TraineeList) {
         int lastPositionInList = TraineeList.size()-1;
         Trainee trainee = TraineeList.get(lastPositionInList);
         TraineeList.remove(TraineeList.size()-1);
         return trainee;
     }
 
-    public static void push(Trainee trainee) {
+    public void push(Trainee trainee) {
         waitingListTrainees.add(trainee);
     }
 
-    public static ArrayList<Trainee> getTrainees() {
+    public ArrayList<Trainee> getTrainees() {
         return waitingListTrainees;
     }
 }
