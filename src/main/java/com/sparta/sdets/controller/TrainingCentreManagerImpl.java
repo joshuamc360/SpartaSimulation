@@ -14,7 +14,7 @@ public class TrainingCentreManagerImpl implements TrainingCentreManager {
 
     @Override
     public int getAvailability(TrainingCentreDTO trainingCentreDTO) {
-        return trainingCentreDTO.getCapacity();
+        return 100 -  trainingCentreDTO.getCapacity();
     }
 
     @Override
