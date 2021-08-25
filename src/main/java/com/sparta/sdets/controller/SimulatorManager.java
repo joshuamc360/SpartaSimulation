@@ -1,87 +1,88 @@
 package com.sparta.sdets.controller;
 
+import com.sparta.sdets.model.RandomNumberGenerator;
 import com.sparta.sdets.model.Trainee;
+import com.sparta.sdets.model.TraineeGeneratorClass;
+import com.sparta.sdets.model.TrainingCentre;
+import com.sparta.sdets.model.WaitingListImpl;
 import com.sparta.sdets.view.DisplayManager;
 import com.sparta.sdets.view.Displayable;
+import com.sparta.sdets.view.InputManager;
 import com.sparta.sdets.view.Inputable;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SimulatorManager {
 
-    Inputable inputManager;
     Displayable displayManager = new DisplayManager();
     TrainingCentreManagerImpl trainingCentreManager = new TrainingCentreManagerImpl();
-    WaitingListManager waitingListManager;
+    TraineeGeneratorClass traineeGenerator = new TraineeGeneratorClass();
 
-    int simulationDuration;
-    int remainingSimulationDuration;
-    boolean monthlyOutput;
-    //TODO: Take input
-        //Duration
-        //Output frequency
+    WaitingListImpl waitingList = new WaitingListImpl();
 
-    simulationDuration = inputManager.getSimulationDuration();
-    monthlyOutput = inputManager.isMonthlyOutput();
+    public void run() {
 
-    remainingSimulationDuration = simulationDuration;
+        int simulationDuration;
 
-    displayManager.printGetMonths(simulationDuration);
+        //TODO: Take input
+            //Output frequency
 
-    //TODO: Main loop
-    for(int i = remainingSimulationDuration; i > 0; i --) {
+        DisplayManager.askForInput();
+        simulationDuration = InputManager.getSimulationDuration();
 
-        //Generating trainees
-        //Allocating trainees to waiting list
-        List<Trainee> trainees = waitingListManager.generateTrainees();
-        for (Trainee trainee : trainees) {
-            waitingListManager.addToWaitingList(trainee);
-        }
+        displayManager.printGetMonths(simulationDuration);
 
-        //Generating training centres
+        //TODO: Main loop
+        for(int i = simulationDuration; i > 0; i --) {
 
-        if((simulationDuration - remainingSimulationDuration) % 2 == 0) {
-            trainingCentreManager.createCentre();
-        }
+            //Generating trainees
+            //Allocating trainees to waiting list
+            List<Trainee> trainees = traineeGenerator.generateTrainee(RandomNumberGenerator.getRandomNumber(50, 100));
+            for (Trainee trainee : trainees) {
+                this.waitingList.push(trainee);
+            }
 
-        //Allocating trainees to available centres
-        trainingCentreManager.allocateTrainees(waitingListManager.getList());
+            //Generating training centres
+            if((simulationDuration - i) % 2 == 0) {
+                trainingCentreManager.createCentre();
+            }
 
-        //TODO: Richard
-        //Checking training centres
-        //Closing training centres
+            //Allocating trainees to available centres
+            ArrayList<TrainingCentre> centres = trainingCentreManager.getAvailableCentres();
+            for(TrainingCentre centre : centres) {
+                centre.addTraineesToCentre();
+            }
 
+            //TODO: Richard
+            //Checking training centres
+            //Closing training centres
 
-        if(monthlyOutput) {
-            //TODO: End of month - output
-            //Number of open centres
-            //Number of full centres
-            //Number of trainees currently training
-            //Number of trainees on waiting list
-            //Number of closed centres
+            //TODO: Monthly Output
 
-            displayManager.printSimulationResults(
-                    trainingCentreManager.getFullCentres().size(),
-                    waitingListManager.getTrainees().size(),
-                    simulationDuration,
-                    trainingCentreManager.getAllTrainingCentreDTOs.size(),
-                    trainingCentreManager.getAvailableCentres().size()
-            );
+/*                displayManager.printSimulationResults(
+                        //Closed centres + available centres = all centres
+                        (trainingCentreManager.getAvailableCentres().size()
+                                + trainingCentreManager.getFullCentres().size()),
+                        trainingCentreManager.getFullCentres().size(),
+                        this.waitingList.getTrainees().size(),
+                        i,
+                        trainingCentreManager.getAllTrainingCentreDTOS().size(),
+                        trainingCentreManager.getAvailableCentres().size()
+                );*/
 
-        }
+            }
+
+        displayManager.printSimulationResults(
+                //Closed centres + available centres = all centres
+                (trainingCentreManager.getAvailableCentres().size()
+                        + trainingCentreManager.getFullCentres().size()),
+                trainingCentreManager.getFullCentres().size(),
+                this.waitingList.getTrainees().size(),
+                simulationDuration,
+                trainingCentreManager.getAllTrainingCentreDTOS().size(),
+                trainingCentreManager.getAvailableCentres().size()
+        );
+
     }
-
-    //TODO: End of simulation - output
-    //Number of open centres
-    //Number of full centres
-    //Number of trainees currently training
-    //Number of trainees on waiting list
-    //Number of closed centres
-    displayManager.printSimulationResults(
-        trainingCentreManager.getFullCentres(),
-        waitingListManager.getTrainees().size(),
-        simulationDuration,
-        trainingCentreManager.getAllTraining.size(),
-        trainingCentreManager.getAvailableCentres()
-    );
 }
