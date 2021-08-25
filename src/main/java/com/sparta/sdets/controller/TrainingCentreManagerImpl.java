@@ -1,4 +1,5 @@
 package com.sparta.sdets.controller;
+
 import com.sparta.sdets.model.TrainingCentre;
 import com.sparta.sdets.model.TrainingCentreDTO;
 
@@ -7,9 +8,10 @@ import java.util.ArrayList;
 
 public class TrainingCentreManagerImpl implements TrainingCentreManager {
 
-    ArrayList<TrainingCentreDTO> allTrainingCentreDTOS = new ArrayList<>();
-    ArrayList<TrainingCentreDTO> fullTrainingCentreDTOS = new ArrayList<>();
-    ArrayList<TrainingCentreDTO> availableTrainingCentreDTOS = new ArrayList<>();
+    private ArrayList<TrainingCentreDTO> allTrainingCentreDTOS = new ArrayList<>();
+    private ArrayList<TrainingCentreDTO> fullTrainingCentreDTOS = new ArrayList<>();
+    private ArrayList<TrainingCentreDTO> availableTrainingCentreDTOS = new ArrayList<>();
+
     @Override
     public int getAvailability(TrainingCentreDTO trainingCentreDTO) {
         return trainingCentreDTO.getCapacity();
@@ -43,6 +45,10 @@ public class TrainingCentreManagerImpl implements TrainingCentreManager {
     @Override
     public void addCentreToList(TrainingCentreDTO trainingCentreDTO) {
         allTrainingCentreDTOS.add(trainingCentreDTO);
+    }
+
+    public ArrayList<TrainingCentreDTO> getAllTrainingCentreDTOS() {
+        return allTrainingCentreDTOS;
     }
 }
 
