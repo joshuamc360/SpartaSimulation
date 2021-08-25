@@ -19,16 +19,17 @@ public class SimulatorManager {
     TrainingCentreManagerImpl trainingCentreManager = new TrainingCentreManagerImpl();
     TraineeGeneratorClass traineeGenerator = new TraineeGeneratorClass();
 
-    WaitingListImpl waitingList = new WaitingListImpl();
+    WaitingListImpl waitingList;
 
     public void run() {
 
+        waitingList = WaitingListImpl.getWaitingListObj();
         int simulationDuration;
 
         //TODO: Take input
             //Output frequency
 
-        DisplayManager.askForInput();
+        //DisplayManager.askForInput();
         simulationDuration = InputManager.getSimulationDuration();
 
         displayManager.printGetMonths(simulationDuration);
@@ -39,17 +40,20 @@ public class SimulatorManager {
             //Generating trainees
             //Allocating trainees to waiting list
             List<Trainee> trainees = traineeGenerator.generateTrainee(RandomNumberGenerator.getRandomNumber(50, 100));
+            //System.out.println(trainees.size() + " trainees generated");
             for (Trainee trainee : trainees) {
                 this.waitingList.push(trainee);
             }
 
             //Generating training centres
             if((simulationDuration - i) % 2 == 0) {
+                //System.out.println(i + " creating new training centre");
                 trainingCentreManager.createCentre();
             }
 
             //Allocating trainees to available centres
             ArrayList<TrainingCentre> centres = trainingCentreManager.getAvailableCentres();
+            //System.out.println(centres.size() + " available centres");
             for(TrainingCentre centre : centres) {
                 centre.addTraineesToCentre();
             }
