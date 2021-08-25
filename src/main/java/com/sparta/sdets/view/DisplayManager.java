@@ -1,4 +1,5 @@
 package com.sparta.sdets.view;
+
 public class DisplayManager implements Displayable{
 
     @Override
