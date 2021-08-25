@@ -4,10 +4,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
-
 import java.util.ArrayList;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class TrainingCentreTest {
     @Test
@@ -29,7 +26,6 @@ class TrainingCentreTest {
     void traineeListAddedToTraineeListInCentre(){
         TrainingCentre trainingCentre = new TrainingCentre();
         Trainee trainee = new Trainee();
-        new WaitingListImpl();
 
         for(int i = 0; i < 20; i ++){
             WaitingListImpl.push(trainee);
