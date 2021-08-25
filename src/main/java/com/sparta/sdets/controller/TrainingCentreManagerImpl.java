@@ -24,21 +24,11 @@ public class TrainingCentreManagerImpl implements TrainingCentreManager {
 
     @Override
     public ArrayList getFullCentres() {
-//        for (TrainingCentreDTO tc : allTrainingCentreDTOS) {
-//            if (tc.getCapacity() == 100) {
-//                fullTrainingCentreDTOS.add(tc);
-//            }
-//        }
         return fullTrainingCentreDTOS;
     }
 
     @Override
     public ArrayList getAvailableCentres() {
-        for (TrainingCentreDTO tc : allTrainingCentreDTOS) {
-            if (tc.getCapacity() < 100) {
-                availableTrainingCentreDTOS.add(tc);
-            }
-        }
         return availableTrainingCentreDTOS;
     }
 
@@ -46,6 +36,7 @@ public class TrainingCentreManagerImpl implements TrainingCentreManager {
     public void addCentreToList(TrainingCentreDTO trainingCentreDTO) {
 
         allTrainingCentreDTOS.add(trainingCentreDTO);
+        availableTrainingCentreDTOS.add(trainingCentreDTO);
     }
 
     public ArrayList<TrainingCentreDTO> getAllTrainingCentreDTOS() {
@@ -55,7 +46,7 @@ public class TrainingCentreManagerImpl implements TrainingCentreManager {
     }
 
 
-    public void addTraineesToCentre(TrainingCentreDTO trainingCentreDTO) {
+    public void addTraineesToCentre() {
 //        RandomNumberGenerator randomNumberGenerator = new RandomNumberGenerator();
 //        int randomNumber = randomNumberGenerator.getRandomNumber(0, 20);
         WaitingListImpl waitingListObject = WaitingListImpl.getWaitingListObj();
@@ -70,11 +61,17 @@ public class TrainingCentreManagerImpl implements TrainingCentreManager {
 //                getAvailableCentres().get(0);
 //            }
 //        }
+        ArrayList<TrainingCentreDTO> clone = new ArrayList<>();
+        for (TrainingCentreDTO tcDTO : availableTrainingCentreDTOS) {
+            clone.add(tcDTO);
 
-        for (TrainingCentreDTO tc : availableTrainingCentreDTOS) {
+        }
+
+
+        for (TrainingCentreDTO tc : clone) {
             if (waitingListObject.getTrainees().size() > 0) {
                 RandomNumberGenerator randomNumberGenerator = new RandomNumberGenerator();
-                int randomNumber = randomNumberGenerator.getRandomNumber(0, 20);
+                int randomNumber = randomNumberGenerator.getRandomNumber(20, 20);
 
                 if (randomNumber > tc.getCapacity()) {
                     randomNumber = tc.getCapacity();
@@ -84,13 +81,13 @@ public class TrainingCentreManagerImpl implements TrainingCentreManager {
                     tc.addToQueue(waitingListObject.pop());
                 }
 
-                if (tc.getCapacity() == 100) {
+                if (tc.getQueue().size() == 100) {
 
                     availableTrainingCentreDTOS.remove(tc);
                     fullTrainingCentreDTOS.add(tc);
+
                 }
-            }
-            else{
+            } else {
                 break;
             }
 
