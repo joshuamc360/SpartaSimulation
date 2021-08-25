@@ -71,7 +71,7 @@ public class TrainingCentreManagerImpl implements TrainingCentreManager {
         for (TrainingCentreDTO tc : clone) {
             if (waitingListObject.getTrainees().size() > 0) {
                 RandomNumberGenerator randomNumberGenerator = new RandomNumberGenerator();
-                int randomNumber = randomNumberGenerator.getRandomNumber(20, 20);
+                int randomNumber = randomNumberGenerator.getRandomNumber(0, 20);
 
                 if (randomNumber > tc.getCapacity()) {
                     randomNumber = tc.getCapacity();

@@ -37,7 +37,7 @@ public class SimulatorManager {
             //Generating trainees
             //Allocating trainees to waiting list
             List<Trainee> trainees = traineeGenerator.generateTrainee(RandomNumberGenerator.getRandomNumber(50, 100));
-            System.out.println(trainees.size() + " trainees generated");
+            //System.out.println(trainees.size() + " trainees generated");
             for (Trainee trainee : trainees) {
                 this.waitingList.push(trainee);
             }
