@@ -1,9 +1,6 @@
 package com.sparta.sdets.controller;
 
-import com.sparta.sdets.model.RandomNumberGenerator;
-import com.sparta.sdets.model.Trainee;
-import com.sparta.sdets.model.TraineeGeneratorClass;
-import com.sparta.sdets.model.TrainingCentre;
+import com.sparta.sdets.model.*;
 import com.sparta.sdets.model.WaitingListImpl;
 import com.sparta.sdets.view.DisplayManager;
 import com.sparta.sdets.view.Displayable;
@@ -40,7 +37,7 @@ public class SimulatorManager {
             //Generating trainees
             //Allocating trainees to waiting list
             List<Trainee> trainees = traineeGenerator.generateTrainee(RandomNumberGenerator.getRandomNumber(50, 100));
-            //System.out.println(trainees.size() + " trainees generated");
+            System.out.println(trainees.size() + " trainees generated");
             for (Trainee trainee : trainees) {
                 this.waitingList.push(trainee);
             }
@@ -52,11 +49,7 @@ public class SimulatorManager {
             }
 
             //Allocating trainees to available centres
-            ArrayList<TrainingCentre> centres = trainingCentreManager.getAvailableCentres();
-            //System.out.println(centres.size() + " available centres");
-            for(TrainingCentre centre : centres) {
-                centre.addTraineesToCentre();
-            }
+            trainingCentreManager.addTraineesToCentre();
 
             //TODO: Richard
             //Checking training centres
@@ -77,14 +70,19 @@ public class SimulatorManager {
 
             }
 
+        int inTraining = 0;
+        ArrayList<TrainingCentreDTO> centres = trainingCentreManager.getAllTrainingCentreDTOS();
+        for (TrainingCentreDTO centreDTO : centres) {
+            inTraining += centreDTO.getQueue().size();
+        }
+
         displayManager.printSimulationResults(
                 //Closed centres + available centres = all centres
-                (trainingCentreManager.getAvailableCentres().size()
-                        + trainingCentreManager.getFullCentres().size()),
+                trainingCentreManager.getAllTrainingCentreDTOS().size(),
                 trainingCentreManager.getFullCentres().size(),
                 this.waitingList.getTrainees().size(),
                 simulationDuration,
-                trainingCentreManager.getAllTrainingCentreDTOS().size(),
+                inTraining,
                 trainingCentreManager.getAvailableCentres().size()
         );
 
