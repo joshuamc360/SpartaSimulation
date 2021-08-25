@@ -28,6 +28,7 @@ public class TrainingCentre implements TrainingCentreDTO{
     public void addTraineesToCentre(){
         RandomNumberGenerator randomNumberGenerator = new RandomNumberGenerator();
         int randomNumber = randomNumberGenerator.getRandomNumber(0,20);
+
         WaitingListImpl waitingListObject = WaitingListImpl.getWaitingListObj();
         ArrayList<Trainee> traineesInWaitingList = waitingListObject.getTrainees();
 
@@ -36,7 +37,7 @@ public class TrainingCentre implements TrainingCentreDTO{
         }
 
         for(int i = 0; i < randomNumber; i++){
-            Trainee trainee = waitingListObject.pop(traineesInWaitingList);
+            Trainee trainee = waitingListObject.pop();
             addToQueue(trainee);
         }
     }

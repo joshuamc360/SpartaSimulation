@@ -12,9 +12,9 @@ public class WaitingListImplTest {
     void popReturnsTrainee(){
         ArrayList<Trainee> traineeList = new ArrayList<>();
         WaitingListImpl waitingListObj = WaitingListImpl.getWaitingListObj();
-        traineeList.add(new Trainee());
+        waitingListObj.push(new Trainee());
 
-        Trainee trainee = waitingListObj.pop(traineeList);
+        Trainee trainee = waitingListObj.pop();
         Assertions.assertEquals("Created", trainee.getState());
     }
 
