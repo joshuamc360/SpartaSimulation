@@ -28,7 +28,7 @@ public class TrainingCentre implements TrainingCentreDTO{
     public void addTraineesToCentre(){
         RandomNumberGenerator randomNumberGenerator = new RandomNumberGenerator();
         int randomNumber = randomNumberGenerator.getRandomNumber(0,20);
-        WaitingListImpl waitingListObject = WaitingListImpl.getWaitingList();
+        WaitingListImpl waitingListObject = WaitingListImpl.getWaitingListObj();
         ArrayList<Trainee> traineesInWaitingList = waitingListObject.getTrainees();
 
         if(randomNumber>traineesInWaitingList.size()){

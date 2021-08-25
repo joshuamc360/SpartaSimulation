@@ -25,10 +25,11 @@ class TrainingCentreTest {
     @DisplayName("Trainees between 0 - 20 should be added to traineesList in centre")
     void traineeListAddedToTraineeListInCentre(){
         TrainingCentre trainingCentre = new TrainingCentre();
+        WaitingListImpl waitingListObj = WaitingListImpl.getWaitingListObj();
         Trainee trainee = new Trainee();
 
         for(int i = 0; i < 20; i ++){
-            WaitingListImpl.push(trainee);
+            waitingListObj.push(trainee);
         }
 
         trainingCentre.addTraineesToCentre();
