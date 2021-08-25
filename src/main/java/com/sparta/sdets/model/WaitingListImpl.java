@@ -3,11 +3,17 @@ package com.sparta.sdets.model;
 import java.util.ArrayList;
 
 public class WaitingListImpl{
-    private static ArrayList<Trainee> waitingListTrainees;
+    private static WaitingListImpl waitingListObject = new WaitingListImpl();
+    private static ArrayList<Trainee> waitingListTrainees = new ArrayList<>();
 
     //not sure
-    public WaitingListImpl(){
-        waitingListTrainees = new ArrayList<>();
+    private WaitingListImpl(){}
+
+    public static WaitingListImpl getWaitingList(){
+        if(waitingListObject == null){
+            waitingListObject = new WaitingListImpl ();
+        }
+        return waitingListObject ;
     }
 
     public static Trainee pop(ArrayList<Trainee> TraineeList) {
