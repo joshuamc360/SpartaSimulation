@@ -21,14 +21,14 @@ public class WaitingListImplTest {
     @DisplayName("20 trainees should be added to the waiting list")
     void traineesAddedToWaitingList(){
         Trainee trainee = new Trainee();
-        new WaitingListImpl();
+        WaitingListImpl waitingListObject = WaitingListImpl.getWaitingList();
+        ArrayList<Trainee> waitingList = waitingListObject.getTrainees();
         for(int i = 0; i < 20; i ++){
             WaitingListImpl.push(trainee);
         }
-        ArrayList<Trainee> traineesInWaitingList = WaitingListImpl.getTrainees();
 
         int actualTraineesInWaitingListSize = 20;
 
-        Assertions.assertEquals(actualTraineesInWaitingListSize, traineesInWaitingList.size());
+        Assertions.assertEquals(actualTraineesInWaitingListSize, waitingList.size());
     }
 }
