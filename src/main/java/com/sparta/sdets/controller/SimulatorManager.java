@@ -40,14 +40,14 @@ public class SimulatorManager {
 
         //Generating training centres
 
-        if(2 months passed) {
+        if((simulationDuration - remainingSimulationDuration) % 2 == 0) {
             trainingCentreManager.createCentre();
         }
 
         //Allocating trainees to available centres
         trainingCentreManager.allocateTrainees(waitingListManager.getList());
 
-        //Richard
+        //TODO: Richard
         //Checking training centres
         //Closing training centres
 
