@@ -16,10 +16,10 @@ public class WaitingListImpl{
         return waitingListObject ;
     }
 
-    public Trainee pop(ArrayList<Trainee> TraineeList) {
-        int lastPositionInList = TraineeList.size()-1;
-        Trainee trainee = TraineeList.get(lastPositionInList);
-        TraineeList.remove(TraineeList.size()-1);
+    public Trainee pop() {
+        int lastPositionInList = waitingListTrainees.size()-1;
+        Trainee trainee = waitingListTrainees.get(lastPositionInList);
+        waitingListTrainees.remove(waitingListTrainees.size()-1);
         return trainee;
     }
 
