@@ -3,4 +3,6 @@ import java.util.Scanner;
 
 public interface Sanitisable {
     public int typeCheck(Scanner input);
+
+    public int boundCheck(int input);
 }
