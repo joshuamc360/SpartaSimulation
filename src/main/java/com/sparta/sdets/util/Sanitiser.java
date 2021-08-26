@@ -11,7 +11,7 @@ public class Sanitiser implements Sanitisable{
         }
         else{
             DisplayManager.invalidInput();
-            return InputManager.getSimulationDuration();
+            return -1;
         }
     }
 }

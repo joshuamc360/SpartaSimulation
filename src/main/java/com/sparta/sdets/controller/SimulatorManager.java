@@ -29,7 +29,11 @@ public class SimulatorManager {
             //Output frequency
 
         //DisplayManager.askForInput();
-        simulationDuration = InputManager.getSimulationDuration();
+
+        do {
+            simulationDuration = InputManager.getSimulationDuration();
+        } while(simulationDuration == -1);
+
         monthlyOutput = InputManager.isMonthlyOutputWanted();
 
         displayManager.printGetMonths(simulationDuration);

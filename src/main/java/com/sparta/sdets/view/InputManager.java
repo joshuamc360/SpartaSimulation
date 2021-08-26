@@ -48,9 +48,10 @@ public class InputManager {/*implements Inputable{
 
         } catch(Exception e) {
             e.printStackTrace();
+            input.nextLine();
             isMonthlyOutputWanted();
         }
-        input.close();
+        //input.close();
         return false;
     }
 
