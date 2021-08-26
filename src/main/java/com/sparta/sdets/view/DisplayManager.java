@@ -16,7 +16,7 @@ public class DisplayManager implements Displayable{
     }
 
     @Override
-    public void printSimulationResults(int openCentres, int fullCentres, int waitingListSize, int monthsPassed, int totalTraining, int notFullCentres) {
+    public void printSimulationResults(int openCentres, int fullCentres, int waitingListSize, int monthsPassed, int totalTraining, int notFullCentres, int numCentresRemoved) {
         printOpenCentres(openCentres);
         //printTotalCentres(trainingHubs, bootcamps, techCentre);printFullCentres(fullCentres);
         printTotalTraining(totalTraining);
@@ -24,6 +24,7 @@ public class DisplayManager implements Displayable{
         printFullCentres(fullCentres);
         printNotFullCentres(notFullCentres);
         printMonthsPassed(monthsPassed);
+        printNumCentresRemoved(numCentresRemoved);
         System.out.println();
     }
 
@@ -45,6 +46,10 @@ public class DisplayManager implements Displayable{
 
     private void printOpenCentres(int openCentres){
         System.out.println("There are " + openCentres + " total open centres");
+    }
+
+    private void printNumCentresRemoved(int numCentresRemoved){
+        System.out.println("There are " + numCentresRemoved + " centres removed");
     }
 
 /*    @Override
