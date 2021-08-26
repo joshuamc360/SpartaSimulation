@@ -24,6 +24,7 @@ public class DisplayManager implements Displayable{
         printFullCentres(fullCentres);
         printNotFullCentres(notFullCentres);
         printMonthsPassed(monthsPassed);
+        System.out.println();
     }
 
     private void printFullCentres(int fullCentres) {

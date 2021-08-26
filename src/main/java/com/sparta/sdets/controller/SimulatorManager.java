@@ -58,24 +58,21 @@ public class SimulatorManager {
             //Checking training centres
             //Closing training centres
 
-/*            //TODO: Monthly Output
-            displayManager.printSimulationResults(
-                    //Closed centres + available centres = all centres
-                    trainingCentreManager.getAllTrainingCentreDTOS().size(),
-                    trainingCentreManager.getFullCentres().size(),
-                    this.waitingList.getTrainees().size(),
-                    simulationDuration,
-                    inTraining,
-                    trainingCentreManager.getAvailableCentres().size()
-            );*/
-
+            //TODO: Monthly Output
+            //Don't do a monthly output on the last month - handled by end of simulation output
+            if(monthlyOutput && i > 1) {
+                displayManager.printSimulationResults(
+                        //Closed centres + available centres = all centres
+                        trainingCentreManager.getAllTrainingCentreDTOS().size(),
+                        trainingCentreManager.getFullCentres().size(),
+                        this.waitingList.getTrainees().size(),
+                        (simulationDuration - i) + 1,
+                        getNumberOfTraineesInTraining(),
+                        trainingCentreManager.getAvailableCentres().size()
+                );
             }
 
-        int inTraining = 0;
-        ArrayList<TrainingCentreDTO> centres = trainingCentreManager.getAllTrainingCentreDTOS();
-        for (TrainingCentreDTO centreDTO : centres) {
-            inTraining += centreDTO.getTraineesList().size();
-        }
+            }
 
         displayManager.printSimulationResults(
                 //Closed centres + available centres = all centres
@@ -83,9 +80,19 @@ public class SimulatorManager {
                 trainingCentreManager.getFullCentres().size(),
                 this.waitingList.getTrainees().size(),
                 simulationDuration,
-                inTraining,
+                getNumberOfTraineesInTraining(),
                 trainingCentreManager.getAvailableCentres().size()
         );
 
+    }
+
+    private int getNumberOfTraineesInTraining() {
+        int inTraining = 0;
+        ArrayList<TrainingCentreDTO> centres = trainingCentreManager.getAllTrainingCentreDTOS();
+        for (TrainingCentreDTO centreDTO : centres) {
+            inTraining += centreDTO.getTraineesList().size();
+        }
+
+        return inTraining;
     }
 }
