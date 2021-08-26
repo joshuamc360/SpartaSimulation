@@ -5,7 +5,6 @@ import com.sparta.sdets.model.WaitingListImpl;
 import com.sparta.sdets.view.DisplayManager;
 import com.sparta.sdets.view.Displayable;
 import com.sparta.sdets.view.InputManager;
-import com.sparta.sdets.view.Inputable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,7 +72,7 @@ public class SimulatorManager {
         int inTraining = 0;
         ArrayList<TrainingCentreDTO> centres = trainingCentreManager.getAllTrainingCentreDTOS();
         for (TrainingCentreDTO centreDTO : centres) {
-            inTraining += centreDTO.getQueue().size();
+            inTraining += centreDTO.getTraineesList().size();
         }
 
         displayManager.printSimulationResults(
