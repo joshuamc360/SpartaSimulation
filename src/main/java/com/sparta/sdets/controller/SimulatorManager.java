@@ -11,11 +11,13 @@ import java.util.List;
 
 public class SimulatorManager {
 
-    Displayable displayManager = new DisplayManager();
-    TrainingCentreManagerImpl trainingCentreManager = new TrainingCentreManagerImpl();
-    TraineeGeneratorClass traineeGenerator = new TraineeGeneratorClass();
+    private Displayable displayManager = new DisplayManager();
+     TrainingCentreManagerImpl trainingCentreManager = new TrainingCentreManagerImpl();
+    private TraineeGeneratorClass traineeGenerator = new TraineeGeneratorClass();
 
-    WaitingListImpl waitingList;
+    private WaitingListImpl waitingList;
+
+    private boolean monthlyOutput;
 
     public void run() {
 
@@ -54,18 +56,16 @@ public class SimulatorManager {
             //Checking training centres
             //Closing training centres
 
-            //TODO: Monthly Output
-
-/*                displayManager.printSimulationResults(
-                        //Closed centres + available centres = all centres
-                        (trainingCentreManager.getAvailableCentres().size()
-                                + trainingCentreManager.getFullCentres().size()),
-                        trainingCentreManager.getFullCentres().size(),
-                        this.waitingList.getTrainees().size(),
-                        i,
-                        trainingCentreManager.getAllTrainingCentreDTOS().size(),
-                        trainingCentreManager.getAvailableCentres().size()
-                );*/
+/*            //TODO: Monthly Output
+            displayManager.printSimulationResults(
+                    //Closed centres + available centres = all centres
+                    trainingCentreManager.getAllTrainingCentreDTOS().size(),
+                    trainingCentreManager.getFullCentres().size(),
+                    this.waitingList.getTrainees().size(),
+                    simulationDuration,
+                    inTraining,
+                    trainingCentreManager.getAvailableCentres().size()
+            );*/
 
             }
 

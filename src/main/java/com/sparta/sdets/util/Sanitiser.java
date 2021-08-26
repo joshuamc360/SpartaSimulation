@@ -6,7 +6,7 @@ import com.sparta.sdets.view.InputManager;
 public class Sanitiser implements Sanitisable{
     @Override
     public int boundingCheck(int input) {
-        if (input > 0 && input < 12000){
+        if (input > 0 && input <= 1200){
             return input;
         }
         else{
