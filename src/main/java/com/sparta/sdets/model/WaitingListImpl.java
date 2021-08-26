@@ -27,6 +27,10 @@ public class WaitingListImpl{
         waitingListTrainees.add(trainee);
     }
 
+    public void pushToFrontOfTheQueue(Trainee trainee) {
+        waitingListTrainees.add(waitingListTrainees.size(), trainee);
+    }
+
     public ArrayList<Trainee> getTrainees() {
         return waitingListTrainees;
     }

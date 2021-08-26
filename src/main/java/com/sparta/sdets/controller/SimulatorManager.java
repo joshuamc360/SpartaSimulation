@@ -14,6 +14,7 @@ public class SimulatorManager {
     private Displayable displayManager = new DisplayManager();
      TrainingCentreManagerImpl trainingCentreManager = new TrainingCentreManagerImpl();
     private TraineeGeneratorClass traineeGenerator = new TraineeGeneratorClass();
+    private static int centresRemoved = 0;
 
     private WaitingListImpl waitingList;
 
@@ -62,6 +63,11 @@ public class SimulatorManager {
             //Checking training centres
             //Closing training centres
 
+            //Start removing centres 3 months in
+            if(simulationDuration - i > 2) {
+                removeLowTraineesCentres();
+            }
+
             //TODO: Monthly Output
             //Don't do a monthly output on the last month - handled by end of simulation output
             if(monthlyOutput && i > 1) {
@@ -72,9 +78,11 @@ public class SimulatorManager {
                         this.waitingList.getTrainees().size(),
                         (simulationDuration - i) + 1,
                         getNumberOfTraineesInTraining(),
-                        trainingCentreManager.getAvailableCentres().size()
+                        trainingCentreManager.getAvailableCentres().size(),
+                        centresRemoved
                 );
             }
+
 
             }
 
@@ -85,9 +93,29 @@ public class SimulatorManager {
                 this.waitingList.getTrainees().size(),
                 simulationDuration,
                 getNumberOfTraineesInTraining(),
-                trainingCentreManager.getAvailableCentres().size()
+                trainingCentreManager.getAvailableCentres().size(),
+                centresRemoved
         );
+    }
 
+    protected void removeLowTraineesCentres(){
+        ArrayList<TrainingCentreDTO> totalCentres = trainingCentreManager.getAllTrainingCentreDTOS();
+        ArrayList<TrainingCentreDTO> clone = new ArrayList<>();
+        for(TrainingCentreDTO trainingCentreDTO: totalCentres){
+            clone.add(trainingCentreDTO);
+        }
+        for(TrainingCentreDTO centre: clone){
+            ArrayList<Trainee> traineesToRemove = centre.getTraineesList();
+            if(traineesToRemove.size()<25){
+                WaitingListImpl waitingList = WaitingListImpl.getWaitingListObj();
+                for(Trainee trainee: traineesToRemove){
+                    waitingList.pushToFrontOfTheQueue(trainee);
+                }
+                trainingCentreManager.removeFromAvailbleCentres(centre);
+                trainingCentreManager.removeFromTotalCentres(centre);
+                centresRemoved ++;
+            }
+        }
     }
 
     private int getNumberOfTraineesInTraining() {
