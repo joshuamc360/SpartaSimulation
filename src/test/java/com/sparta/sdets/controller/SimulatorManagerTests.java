@@ -12,17 +12,18 @@ import java.util.Scanner;
 
 public class SimulatorManagerTests {
 
-    private static SimulatorManager simulatorManager;
+    private SimulatorManager simulatorManager;
     private static InputStream input;
     private static Scanner scanner;
 
-    @BeforeAll
+    /*@BeforeAll
     static void setup() {
         simulatorManager = new SimulatorManager();
-    }
+    }*/
 
     @Test
     public void testExpectedOutputIsReceivedWhenSimulationIsFinished() {
+        simulatorManager = new SimulatorManager();
 
         String string = "1";
         input = new ByteArrayInputStream(string.getBytes());
@@ -34,6 +35,7 @@ public class SimulatorManagerTests {
 
     @Test
     public void testCentresNotCreatedEveryMonth() {
+        simulatorManager = new SimulatorManager();
 
         String string = "10";
         input = new ByteArrayInputStream(string.getBytes());
@@ -47,6 +49,7 @@ public class SimulatorManagerTests {
 
     @Test
     public void testCentresCreatedEveryTwoMonths() {
+        simulatorManager = new SimulatorManager();
         //------------------------------------------------------
 
         //Staring at 1, should create a new one on

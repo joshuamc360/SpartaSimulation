@@ -22,6 +22,8 @@ public class WaitingListImplTest {
     @DisplayName("Pop should remove the returned trainee from the list")
     void popRemovesTrainee(){
         WaitingListImpl waitingListObj = WaitingListImpl.getWaitingListObj();
+        ArrayList<Trainee> waitingList = waitingListObj.getTrainees();
+        waitingList.removeAll(waitingList);
         waitingListObj.push(new Trainee());
 
         Trainee trainee = waitingListObj.pop();
@@ -34,6 +36,8 @@ public class WaitingListImplTest {
         Trainee trainee = new Trainee();
         WaitingListImpl waitingListObject = WaitingListImpl.getWaitingListObj();
         ArrayList<Trainee> waitingList = waitingListObject.getTrainees();
+        waitingList.removeAll(waitingList);
+
         for(int i = 0; i < 20; i ++){
             waitingListObject.push(trainee);
         }

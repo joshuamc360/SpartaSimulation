@@ -30,7 +30,7 @@ public class Trainee implements TraineeDTO {
     public void setAccepted(){this.state = "Accepted";}
 
     private String courseSelecter() {
-        int courseNum = RandomNumberGenerator.getRandomNumber(1,5);
+        int courseNum = RandomNumberGenerator.getRandomNumber(0,4);
         String[] courses = {"Data", "C#", "Java", "DevOps", "Business"};
         return courses[courseNum];
     }
