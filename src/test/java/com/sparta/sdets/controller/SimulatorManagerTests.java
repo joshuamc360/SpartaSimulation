@@ -1,24 +1,30 @@
 package com.sparta.sdets.controller;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+import com.sparta.sdets.model.Trainee;
+import com.sparta.sdets.model.TrainingCentre;
+import com.sparta.sdets.model.TrainingCentreDTO;
+import com.sparta.sdets.model.WaitingListImpl;
+import org.junit.jupiter.api.*;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Scanner;
 
-public class SimulatorManagerTests {
+public class SimulatorManagerTests extends SimulatorManager{
 
-    /*private SimulatorManager simulatorManager;
-    private static Scanner scanner;
+    private SimulatorManager simulatorManager;
+//    private static Scanner scanner;
 
-    *//*@BeforeAll
-    static void setup() {
+    @BeforeEach
+    void setup() {
         simulatorManager = new SimulatorManager();
-    }*//*
+    }
+    /*
 
     @Test
     public void testExpectedOutputIsReceivedWhenSimulationIsFinished() {
@@ -100,5 +106,27 @@ public class SimulatorManagerTests {
         simulatorManager.run();
     }*/
 
+   /* @Test
+    @DisplayName("Centre with less than 25 trainees in them should be removed.")
+    void removeLowTraineesCentresTest(){
+        WaitingListImpl waitingListObj = WaitingListImpl.getWaitingListObj();
+        ArrayList<Trainee> waitingList = waitingListObj.getTrainees();
+        waitingList.removeAll(waitingList);
+
+        TrainingCentre trainingCentre = new TrainingCentre();
+        TrainingCentreManagerImpl trainingCentreManager = new TrainingCentreManagerImpl();
+
+        for (int i = 0; i < 2; i++){
+            Trainee trainee = new Trainee();
+            trainingCentre.addToQueue(trainee);
+        }
+
+        trainingCentreManager.addCentreToList(trainingCentre);
+
+        super.removeLowTraineesCentres();
+
+        int trainingCentresOpen = trainingCentreManager.getAvailableCentres().size();
+        Assertions.assertEquals(0, trainingCentresOpen);
+    }*/
 
 }
