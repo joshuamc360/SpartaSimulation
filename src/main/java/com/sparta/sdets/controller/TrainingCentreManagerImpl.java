@@ -51,6 +51,13 @@ public class TrainingCentreManagerImpl implements TrainingCentreManager {
         return allTrainingCentreDTOS;
     }
 
+    public void removeFromAvailbleCentres(TrainingCentreDTO centre){
+        availableTrainingCentreDTOS.remove(centre);
+    }
+
+    public void removeFromTotalCentres(TrainingCentreDTO centre){
+        allTrainingCentreDTOS.remove(centre);
+    }
 
     public void addTraineesToCentre() {
         WaitingListImpl waitingListObject = WaitingListImpl.getWaitingListObj();
@@ -64,7 +71,7 @@ public class TrainingCentreManagerImpl implements TrainingCentreManager {
         for (TrainingCentreDTO tc : clone) {
             if (waitingListObject.getTrainees().size() > 0) {
                 RandomNumberGenerator randomNumberGenerator = new RandomNumberGenerator();
-                int randomNumber = randomNumberGenerator.getRandomNumber(0, 20);
+                int randomNumber = randomNumberGenerator.getRandomNumber(0, 50);
 
                 if (randomNumber > tc.getRemainingSpace()) {
                     randomNumber = tc.getRemainingSpace();
