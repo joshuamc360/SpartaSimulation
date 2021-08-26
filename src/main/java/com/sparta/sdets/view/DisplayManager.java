@@ -7,7 +7,7 @@ public class DisplayManager implements Displayable{
     }
 
     public static void invalidInput(){
-        System.out.println("Positive integers only!");
+        System.out.println("Invalid Input. Please provide a valid input between 1 and 1200!");
     }
 
     @Override
