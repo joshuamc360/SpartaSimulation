@@ -1,10 +1,18 @@
 package com.sparta.sdets.model;
 
+import java.lang.reflect.Array;
+
 public class Trainee implements TraineeDTO {
     private String state;
+    private String courseType;
 
     public Trainee() {
         this.state = "Created";
+        this.courseType = courseSelecter();
+    }
+
+    public String getCourseType() {
+        return courseType;
     }
 
     @Override
@@ -20,4 +28,10 @@ public class Trainee implements TraineeDTO {
     public void setWaiting(){this.state = "Waiting";}
 
     public void setAccepted(){this.state = "Accepted";}
+
+    private String courseSelecter() {
+        int courseNum = RandomNumberGenerator.getRandomNumber(1,5);
+        String[] courses = {"Data", "C#", "Java", "DevOps", "Business"};
+        return courses[courseNum];
+    }
 }
