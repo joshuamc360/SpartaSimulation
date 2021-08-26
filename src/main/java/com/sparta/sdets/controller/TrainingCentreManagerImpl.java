@@ -94,13 +94,19 @@ public class TrainingCentreManagerImpl{
                 RandomNumberGenerator randomNumberGenerator = new RandomNumberGenerator();
                 int randomNumber = randomNumberGenerator.getRandomNumber(0, 50);
 
+                System.out.println("Generated = " + randomNumber);
+
                 if (randomNumber > tc.getRemainingSpace()) {
                     randomNumber = tc.getRemainingSpace();
                 } else if(randomNumber > waitingListObject.getTrainees().size() - 1) {
-                    randomNumber = waitingListObject.getTrainees().size() - 1;
+                    System.out.println("\n" + "Trainees in waiting list: " + waitingListObject.getTrainees().size());
+                    System.out.println("Random number generated = " + randomNumber);
+                    randomNumber = waitingListObject.getTrainees().size();
+                    System.out.println("Random number has been set to: " + randomNumber + "\n");
                 }
 
-                for (int i = 0; i < randomNumber; i++) {
+                //TODO: ArrayList access index -1 here and crashes. WHY!?!?!!?!?!
+                for (int i = 0; i < randomNumber - 1; i++) {
                     tc.addToQueue(waitingListObject.pop());
                 }
 

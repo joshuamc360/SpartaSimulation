@@ -1,6 +1,8 @@
 package com.sparta.sdets.model;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Deque;
 
 public class WaitingListImpl{
     private static WaitingListImpl waitingListObject = new WaitingListImpl();
@@ -20,6 +22,7 @@ public class WaitingListImpl{
         int lastPositionInList = waitingListTrainees.size() - 1;
         Trainee trainee = waitingListTrainees.get(lastPositionInList);
         waitingListTrainees.remove(waitingListTrainees.size() - 1);
+
         return trainee;
     }
 
