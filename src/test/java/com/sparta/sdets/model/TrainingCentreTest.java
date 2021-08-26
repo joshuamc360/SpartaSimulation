@@ -15,28 +15,36 @@ class TrainingCentreTest {
 
         trainingCentre.addToQueue(trainee);
 
-        ArrayList<Trainee> expectedTraineeList = trainingCentre.getQueue();
+        ArrayList<Trainee> expectedTraineeList = trainingCentre.getTraineesList();
         Trainee expectedTrainee = expectedTraineeList.get(0);
 
         Assertions.assertEquals(expectedTrainee, trainee);
     }
 
-    @RepeatedTest(30)
-    @DisplayName("Trainees between 0 - 20 should be added to traineesList in centre")
-    void traineeListAddedToTraineeListInCentre(){
+    @Test
+    @DisplayName("Remaining centre should return 80.")
+    void traineeAddedToCentreReturns80RemainingSpace(){
+        Trainee trainee = new Trainee();
         TrainingCentre trainingCentre = new TrainingCentre();
         WaitingListImpl waitingListObj = WaitingListImpl.getWaitingListObj();
-        Trainee trainee = new Trainee();
+        ArrayList<Trainee> traineeArrayList = trainingCentre.getTraineesList();
 
         for(int i = 0; i < 20; i ++){
             waitingListObj.push(trainee);
+            traineeArrayList.add(trainee);
         }
 
-        trainingCentre.addTraineesToCentre();
+        int expectedRemainingSpace = 80;
+        int actualRemainingSpace = trainingCentre.getRemainingSpace();
 
-        ArrayList<Trainee> expectedTraineeList = trainingCentre.getQueue();
+        Assertions.assertEquals(expectedRemainingSpace, actualRemainingSpace);
+    }
 
-        System.out.println(expectedTraineeList.size());
-        Assertions.assertTrue(expectedTraineeList.size()<=20);
+    @Test
+    @DisplayName("Centre capacity should always be 100.")
+    void centreCapacityShouldBe100(){
+        TrainingCentre trainingCentre = new TrainingCentre();
+        int capacity = trainingCentre.getCapacity();
+        Assertions.assertEquals(100,capacity);
     }
 }
