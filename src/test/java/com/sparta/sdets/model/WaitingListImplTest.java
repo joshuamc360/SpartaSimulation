@@ -19,14 +19,6 @@ public class WaitingListImplTest {
     }
 
     @Test
-    public void testPoppingAnEmptyListDoesntWork() {
-        WaitingListImpl waitingList = WaitingListImpl.getWaitingListObj();
-
-        Assertions.assertNull(waitingList.pop());
-
-    }
-
-    @Test
     @DisplayName("Pop should remove the returned trainee from the list")
     void popRemovesTrainee(){
         WaitingListImpl waitingListObj = WaitingListImpl.getWaitingListObj();

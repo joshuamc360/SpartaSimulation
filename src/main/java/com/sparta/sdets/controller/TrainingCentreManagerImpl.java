@@ -83,9 +83,17 @@ public class TrainingCentreManagerImpl{
         WaitingListImpl waitingListObject = WaitingListImpl.getWaitingListObj();
 
         ArrayList<TrainingCentreDTO> clone = new ArrayList<>();
-        for (TrainingCentreDTO tc : allTrainingCentreDTOS) {
+        for (TrainingCentreDTO tc: availableBootcamps) {
             clone.add(tc);
         }
+
+        ArrayList<TrainingCentreDTO> cloneTrainingHubs = new ArrayList<>();
+        for (TrainingCentreDTO tc: availableTrainingHubs) {
+            cloneTrainingHubs.add(tc);
+        }
+
+        clone.addAll(cloneTrainingHubs);
+
         Collections.shuffle(clone);
 
 
@@ -94,19 +102,17 @@ public class TrainingCentreManagerImpl{
                 RandomNumberGenerator randomNumberGenerator = new RandomNumberGenerator();
                 int randomNumber = randomNumberGenerator.getRandomNumber(0, 50);
 
-                System.out.println("Generated = " + randomNumber);
-
                 if (randomNumber > tc.getRemainingSpace()) {
                     randomNumber = tc.getRemainingSpace();
                 } else if(randomNumber > waitingListObject.getTrainees().size() - 1) {
-                    System.out.println("\n" + "Trainees in waiting list: " + waitingListObject.getTrainees().size());
-                    System.out.println("Random number generated = " + randomNumber);
                     randomNumber = waitingListObject.getTrainees().size();
-                    System.out.println("Random number has been set to: " + randomNumber + "\n");
                 }
 
                 //TODO: ArrayList access index -1 here and crashes. WHY!?!?!!?!?!
-                for (int i = 0; i < randomNumber - 1; i++) {
+                for (int i = 0; i < randomNumber; i++) {
+                    if(waitingListObject.getTrainees().size() < 1)
+                        break;
+
                     tc.addToQueue(waitingListObject.pop());
                 }
 
