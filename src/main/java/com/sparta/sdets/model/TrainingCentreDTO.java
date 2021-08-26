@@ -3,6 +3,7 @@ import java.util.ArrayList;
 
 public interface TrainingCentreDTO {
     int getCapacity();
-    ArrayList getQueue();
+    int getRemainingSpace();
+    ArrayList getTraineesList();
     void addToQueue(Trainee trainee);
 }
