@@ -24,15 +24,15 @@ public class SanitiserTest {
     void boundingCheckTest(){
 
 
-        int actual = Sanitiser.boundingCheck(2);
+        int actual = Sanitiser.boundingCheck(1200);
 
-        assertEquals(2,actual );
+        assertEquals(1200,actual );
     }
 
     @Test
     void boundingUpperCheckFailCaseTest(){
 
-        Sanitiser.boundingCheck(50000);
+        Sanitiser.boundingCheck(15000);
 
         assertEquals("Number is greater than upper bound", outputStreamCaptor.toString()
                 .trim());

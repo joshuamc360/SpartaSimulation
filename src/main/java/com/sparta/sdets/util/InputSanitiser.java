@@ -1,8 +1,8 @@
-//package com.sparta.sdets.util;
-//
+package com.sparta.sdets.util;
+
 //import java.util.Scanner;
 //
-//public class InputSanitiser implements Sanitisable{
+//public class InputSanitiser  Sanitisable{
 //
 //    @Override
 //    public int typeCheck(Scanner input) {
