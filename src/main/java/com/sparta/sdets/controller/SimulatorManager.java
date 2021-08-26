@@ -23,12 +23,14 @@ public class SimulatorManager {
 
         waitingList = WaitingListImpl.getWaitingListObj();
         int simulationDuration;
+        boolean monthlyOutput = false;
 
         //TODO: Take input
             //Output frequency
 
         //DisplayManager.askForInput();
         simulationDuration = InputManager.getSimulationDuration();
+        monthlyOutput = InputManager.isMonthlyOutputWanted();
 
         displayManager.printGetMonths(simulationDuration);
 

@@ -24,8 +24,34 @@ public class InputManager {/*implements Inputable{
             DisplayManager.invalidInput();
             getSimulationDuration();
         }
-        input.close();
+        //input.close();
         return months;
+    }
+
+    public static boolean isMonthlyOutputWanted() {
+
+        Scanner input = new Scanner(System.in);
+        String userInput = "";
+
+        DisplayManager.printMonthlyOutputPrompt();
+
+        try {
+            userInput = input.nextLine();
+
+            if(userInput.toLowerCase().equals("y")) {
+                return true;
+            } else if(userInput.toLowerCase().equals("n")) {
+                return false;
+            } else {
+                isMonthlyOutputWanted();
+            }
+
+        } catch(Exception e) {
+            e.printStackTrace();
+            isMonthlyOutputWanted();
+        }
+        input.close();
+        return false;
     }
 
 /*    public static int getSimulationDuration() {

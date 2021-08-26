@@ -55,4 +55,8 @@ public class DisplayManager implements Displayable{
         System.out.println("After: " + monthsPassed + " months");
     }
 
+    public static void printMonthlyOutputPrompt() {
+        System.out.println("Do you want the simulation to output the result of each month? Y/N");
+    }
+
 }
