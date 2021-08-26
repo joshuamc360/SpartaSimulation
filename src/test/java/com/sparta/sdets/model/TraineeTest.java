@@ -25,4 +25,10 @@ class TraineeTest {
         trainee.setAccepted();
         assertEquals("Accepted",trainee.getState());
     }
+
+    @Test
+    void courseTypeTest() {
+        String testCourse = trainee.getCourseType();
+        assertTrue(testCourse.equals("C#") || testCourse.equals("Java") || testCourse.equals("DevOps") || testCourse.equals("Data") || testCourse.equals("Business"));
+    }
 }
