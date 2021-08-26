@@ -10,6 +10,11 @@ public class DisplayManager implements Displayable{
         System.out.println("Positive integers only!");
     }
 
+    //added new fn to throw upper bound error message
+    public static void invalidInputUpperBound(){
+        System.out.println("Number is greater than upper bound");
+    }
+
     @Override
     public void printGetMonths(int months) {
         System.out.println("Running a simulation for " + months + " months");
@@ -25,7 +30,6 @@ public class DisplayManager implements Displayable{
         printNotFullCentres(notFullCentres);
         printMonthsPassed(monthsPassed);
     }
-
     private void printFullCentres(int fullCentres) {
         System.out.println("There are: " + fullCentres + " full centres");
     }
