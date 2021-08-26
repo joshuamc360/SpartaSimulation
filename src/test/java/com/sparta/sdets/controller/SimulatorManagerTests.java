@@ -57,7 +57,7 @@ public class SimulatorManagerTests extends SimulatorManager{
         simulatorManager = new SimulatorManager();
         InputStream input;
 
-        String string = "10\nn";
+        String string = "10";
         input = new ByteArrayInputStream(string.getBytes());
 
         System.setIn(input);

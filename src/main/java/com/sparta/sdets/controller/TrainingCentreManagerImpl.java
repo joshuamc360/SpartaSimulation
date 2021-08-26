@@ -3,56 +3,76 @@ package com.sparta.sdets.controller;
 import com.sparta.sdets.model.*;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 
-public class TrainingCentreManagerImpl implements TrainingCentreManager {
+public class TrainingCentreManagerImpl{
 
     private ArrayList<TrainingCentreDTO> allTrainingCentreDTOS = new ArrayList<>();
-    private ArrayList<TrainingCentreDTO> fullTrainingCentreDTOS = new ArrayList<>();
-    private ArrayList<TrainingCentreDTO> availableTrainingCentreDTOS = new ArrayList<>();
+//    private ArrayList<TrainingCentreDTO> fullTrainingCentreDTOS = new ArrayList<>();
+//    private ArrayList<TrainingCentreDTO> availableTrainingCentreDTOS = new ArrayList<>();
 
-    private ArrayList<Bootcamp> availableBootcamps;
-    private ArrayList<Bootcamp> fullBootcamps;
+    private ArrayList<Bootcamp> availableBootcamps = new ArrayList<Bootcamp>();
+    private ArrayList<Bootcamp> fullBootcamps = new ArrayList<Bootcamp>();
 
-    private ArrayList<TrainingHub> availableTrainingHubs;
-    private ArrayList<TrainingHub> fullTrainingHubs;
+    private ArrayList<TrainingHub> availableTrainingHubs = new ArrayList<TrainingHub>();
+    private ArrayList<TrainingHub> fullTrainingHubs = new ArrayList<TrainingHub>();
 
 
-    @Override
-    public int getAvailability(TrainingCentreDTO trainingCentreDTO) {
-        return trainingCentreDTO.getCapacity();
+    //-------------------------------------------------------------------------------------
+
+    public void createCentre(String type) {
+        if(type.toLowerCase().equals("bootcamp")) {
+            addCentreToBootCamp(new Bootcamp());
+        } else if(type.toLowerCase().equals("traininghub")) {
+
+            int numTrainingHubsCreated = RandomNumberGenerator.getRandomNumber(1, 3);
+
+            for(int i = 0; i < numTrainingHubsCreated; i ++) {
+                addCentreToTrainingHub(new TrainingHub());
+            }
+
+        }
     }
 
-    @Override
-    public void createCentre() {
-        addCentreToList((TrainingCentreDTO) new TrainingCentre());
+    public ArrayList<Bootcamp> getFullBootCamps() {
+        return fullBootcamps;
     }
 
-    @Override
-    public ArrayList getFullCentres() {
-        return fullTrainingCentreDTOS;
+    public ArrayList<Bootcamp> getAvailableBootCamps() {
+        return availableBootcamps;
     }
 
-    @Override
-    public ArrayList getAvailableCentres() {
-        return availableTrainingCentreDTOS;
+    public ArrayList<TrainingHub> getFullTrainingHubs() {
+        return fullTrainingHubs;
     }
 
-    @Override
-    public void addCentreToList(TrainingCentreDTO trainingCentreDTO) {
+    public ArrayList<TrainingHub> getAvailableTrainingHubs() {
+        return availableTrainingHubs;
+    }
+
+    public void addCentreToBootCamp(Bootcamp trainingCentreDTO) {
 
         allTrainingCentreDTOS.add(trainingCentreDTO);
-        availableTrainingCentreDTOS.add(trainingCentreDTO);
+        availableBootcamps.add(trainingCentreDTO);
+    }
+
+    public void addCentreToTrainingHub(TrainingHub trainingCentreDTO) {
+
+        allTrainingCentreDTOS.add(trainingCentreDTO);
+        availableTrainingHubs.add(trainingCentreDTO);
     }
 
     public ArrayList<TrainingCentreDTO> getAllTrainingCentreDTOS() {
-
-
         return allTrainingCentreDTOS;
     }
 
-    public void removeFromAvailbleCentres(TrainingCentreDTO centre){
-        availableTrainingCentreDTOS.remove(centre);
+    public void removeFromAvailbleBootCamps(Bootcamp centre){
+        availableBootcamps.remove(centre);
+    }
+
+    public void removeFromAvailbleTrainingHubs(TrainingHub centre){
+        availableTrainingHubs.remove(centre);
     }
 
     public void removeFromTotalCentres(TrainingCentreDTO centre){
@@ -63,9 +83,10 @@ public class TrainingCentreManagerImpl implements TrainingCentreManager {
         WaitingListImpl waitingListObject = WaitingListImpl.getWaitingListObj();
 
         ArrayList<TrainingCentreDTO> clone = new ArrayList<>();
-        for (TrainingCentreDTO tcDTO : availableTrainingCentreDTOS) {
-            clone.add(tcDTO);
+        for (TrainingCentreDTO tc : allTrainingCentreDTOS) {
+            clone.add(tc);
         }
+        Collections.shuffle(clone);
 
 
         for (TrainingCentreDTO tc : clone) {
@@ -75,15 +96,23 @@ public class TrainingCentreManagerImpl implements TrainingCentreManager {
 
                 if (randomNumber > tc.getRemainingSpace()) {
                     randomNumber = tc.getRemainingSpace();
+                } else if(randomNumber > waitingListObject.getTrainees().size() - 1) {
+                    randomNumber = waitingListObject.getTrainees().size() - 1;
                 }
 
                 for (int i = 0; i < randomNumber; i++) {
                     tc.addToQueue(waitingListObject.pop());
                 }
 
-                if (tc.getTraineesList().size() == 100) {
-                    availableTrainingCentreDTOS.remove(tc);
-                    fullTrainingCentreDTOS.add(tc);
+                if (tc.getTraineesList().size() == tc.getCapacity()) {
+
+                    if(tc.getClass().getName().toLowerCase().contains("bootcamp")) {
+                        availableBootcamps.remove(tc);
+                        fullBootcamps.add((Bootcamp) tc);
+                    } else {
+                        availableTrainingHubs.remove(tc);
+                        fullTrainingHubs.add((TrainingHub) tc);
+                    }
                 }
             } else {
                 break;

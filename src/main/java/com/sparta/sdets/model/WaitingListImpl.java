@@ -17,9 +17,9 @@ public class WaitingListImpl{
     }
 
     public Trainee pop() {
-        int lastPositionInList = waitingListTrainees.size()-1;
+        int lastPositionInList = waitingListTrainees.size() - 1;
         Trainee trainee = waitingListTrainees.get(lastPositionInList);
-        waitingListTrainees.remove(waitingListTrainees.size()-1);
+        waitingListTrainees.remove(waitingListTrainees.size() - 1);
         return trainee;
     }
 

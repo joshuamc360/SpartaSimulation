@@ -11,8 +11,8 @@ public class BootcampTest {
     void addToBootcampsTest() {
         Bootcamp bootcamp = new Bootcamp();
         Trainee trainee = new Trainee();
-        bootcamp.addToBootcamps(trainee);
-        Assertions.assertEquals(499, bootcamp.getRemainingPlaces());
+        bootcamp.addToQueue(trainee);
+        Assertions.assertEquals(499, bootcamp.getRemainingSpace());
     }
 
     @Test
@@ -48,10 +48,10 @@ public class BootcampTest {
     void getRemainingPlacesTest() {
         Bootcamp bootcamp = new Bootcamp();
         Trainee trainee = new Trainee();
-        bootcamp.addToBootcamps(trainee);
-        bootcamp.addToBootcamps(trainee);
-        bootcamp.addToBootcamps(trainee);
-        Assertions.assertEquals(497, bootcamp.getRemainingPlaces());
+        bootcamp.addToQueue(trainee);
+        bootcamp.addToQueue(trainee);
+        bootcamp.addToQueue(trainee);
+        Assertions.assertEquals(497, bootcamp.getRemainingSpace());
     }
 
     @Test
@@ -59,8 +59,8 @@ public class BootcampTest {
     void removeFromBootcampTest() {
         Bootcamp bootcamp = new Bootcamp();
         Trainee trainee = new Trainee();
-        bootcamp.addToBootcamps(trainee);
-        bootcamp.addToBootcamps(trainee);
+        bootcamp.addToQueue(trainee);
+        bootcamp.addToQueue(trainee);
         bootcamp.removeFromBootcamp();
         Assertions.assertEquals(6,bootcamp.getBootcampCount()); // Expected 6 following the addition of 7 trainees and one being removed
     }

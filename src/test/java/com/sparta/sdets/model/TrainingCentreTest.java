@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 
 class TrainingCentreTest {
-    @Test
+/*    @Test
     @DisplayName("Trainee is added to trainee List in centre")
     void traineeAddedToTraineeListInCentre(){
         Trainee trainee = new Trainee();
@@ -46,5 +46,5 @@ class TrainingCentreTest {
         TrainingCentre trainingCentre = new TrainingCentre();
         int capacity = trainingCentre.getCapacity();
         Assertions.assertEquals(100,capacity);
-    }
+    }*/
 }

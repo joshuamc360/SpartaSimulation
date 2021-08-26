@@ -1,6 +1,6 @@
 package com.sparta.sdets.view;
 
-public class DisplayManager implements Displayable{
+public class DisplayManager{
 
     public static void askForInput(){
         System.out.println("How many months would you like to run the simulation for?: ");
@@ -10,26 +10,35 @@ public class DisplayManager implements Displayable{
         System.out.println("Invalid Input. Please provide a valid input between 1 and 1200!");
     }
 
-    @Override
     public void printGetMonths(int months) {
         System.out.println("Running a simulation for " + months + " months");
     }
 
-    @Override
-    public void printSimulationResults(int openCentres, int fullCentres, int waitingListSize, int monthsPassed, int totalTraining, int notFullCentres, int numCentresRemoved) {
+    public void printSimulationResults(int openCentres, int fullBootCamps,
+                                       int fullTrainingHubs, int waitingListSize,
+                                       int monthsPassed, int totalTraining,
+                                       int notFullBootCamps, int notFullTrainingHubs,
+                                       int numBootCampsRemoved, int numTrainingHubsRemoved) {
+        printMonthsPassed(monthsPassed);
         printOpenCentres(openCentres);
-        //printTotalCentres(trainingHubs, bootcamps, techCentre);printFullCentres(fullCentres);
+        printFullBootCamps(fullBootCamps);
+        printFullTrainingHubs(fullTrainingHubs);
         printTotalTraining(totalTraining);
         printWaitingListSize(waitingListSize);
-        printFullCentres(fullCentres);
-        printNotFullCentres(notFullCentres);
-        printMonthsPassed(monthsPassed);
-        printNumCentresRemoved(numCentresRemoved);
+        printNotFullBootCamps(notFullBootCamps);
+        printNotFullTrainingHubs(notFullTrainingHubs);
+        printNumBootCampsRemoved(numBootCampsRemoved);
+        printNumTrainingHubsRemoved(numTrainingHubsRemoved);
+
         System.out.println();
     }
 
-    private void printFullCentres(int fullCentres) {
-        System.out.println("There are: " + fullCentres + " full centres");
+    private void printFullTrainingHubs(int fullTrainingHubs) {
+        System.out.println("There are: " + fullTrainingHubs + " full training hubs");
+    }
+
+    private void printFullBootCamps(int fullBootCamps) {
+        System.out.println("There are: " + fullBootCamps + " full boot camps");
     }
 
     private void printWaitingListSize(int waitingListSize) {
@@ -40,16 +49,24 @@ public class DisplayManager implements Displayable{
         System.out.println("There are: " + totalTraining + " people currently training");
     }
 
-    private void printNotFullCentres(int notFullCentres) {
-        System.out.println("There are: " + notFullCentres + " centres that are NOT full");
+    private void printNotFullBootCamps(int notFullBootCamps) {
+        System.out.println("There are: " + notFullBootCamps + " boot camps that are NOT full");
+    }
+
+    private void printNotFullTrainingHubs(int notFullTrainingHubs) {
+        System.out.println("There are: " + notFullTrainingHubs + " training hubs that are NOT full");
     }
 
     private void printOpenCentres(int openCentres){
         System.out.println("There are " + openCentres + " total open centres");
     }
 
-    private void printNumCentresRemoved(int numCentresRemoved){
-        System.out.println("There are " + numCentresRemoved + " centres removed");
+    private void printNumBootCampsRemoved(int numBootCampsRemoved){
+        System.out.println("There are " + numBootCampsRemoved + " boot camps removed");
+    }
+
+    private void printNumTrainingHubsRemoved(int numTrainingHubsRemoved){
+        System.out.println("There are " + numTrainingHubsRemoved + " training hubs removed");
     }
 
 /*    @Override
