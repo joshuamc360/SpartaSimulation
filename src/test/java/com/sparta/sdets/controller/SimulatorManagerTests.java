@@ -21,11 +21,5 @@ public class SimulatorManagerTests {
         scanner = new Scanner(System.in);
     }
 
-    @Test
-    public void testExpectedOutputIsRecievedWhenSimulationIsFinished() {
-
-        simulatorManager.run();
-    }
-
 
 }
