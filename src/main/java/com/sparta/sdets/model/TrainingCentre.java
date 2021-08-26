@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class TrainingCentre implements TrainingCentreDTO{
     private ArrayList<Trainee> traineesListInCentre;
-
+    private final static int CAPACITY = 100;
 
     public TrainingCentre(){
         traineesListInCentre = new ArrayList<>();
@@ -12,7 +12,11 @@ public class TrainingCentre implements TrainingCentreDTO{
 
     @Override
     public int getCapacity() {
-        return 100 - this.traineesListInCentre.size();
+        return CAPACITY;
+    }
+
+    public int getRemainingSpace() {
+        return CAPACITY - this.traineesListInCentre.size();
     }
 
     @Override
