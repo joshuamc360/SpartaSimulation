@@ -3,7 +3,7 @@ package com.sparta.sdets.model;
 import java.util.ArrayList;
 
 public class TrainingCentre implements TrainingCentreDTO{
-    private ArrayList<Trainee> traineesListInCentre;
+    protected ArrayList<Trainee> traineesListInCentre;
     private final static int CAPACITY = 100;
 
     public TrainingCentre(){
