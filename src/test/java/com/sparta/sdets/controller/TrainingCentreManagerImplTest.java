@@ -63,11 +63,13 @@ class TrainingCentreManagerImplTest {
     }
 
     @Test
+    @RepeatedTest(30)
+    @DisplayName("Test 1-3 Training Hubs are greated each time")
     public void addNewTrainingHubTest(){
         int size1 = trainingCentreManager.getAllTrainingCentreDTOS().size();
         trainingCentreManager.createCentre("traininghub");
         int size2 = trainingCentreManager.getAllTrainingCentreDTOS().size();
-        Assertions.assertEquals(size1 + 1, size2);
+        Assertions.assertTrue(4 > size2 && size2 > 0);
     }
 
     @Test
