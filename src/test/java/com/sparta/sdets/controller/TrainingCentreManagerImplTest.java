@@ -33,14 +33,14 @@ class TrainingCentreManagerImplTest {
 
 
     @RepeatedTest(30)
-    @DisplayName("Trainees between 0 - 20 should be added to traineesList in centre")
+    @DisplayName("Trainees between 0 - 50 should be added to traineesList in centre")
     void traineeListAddedToTraineeListInCentre(){
         TrainingCentreManagerImpl trainingCentreManagerImpl = new TrainingCentreManagerImpl();
         TrainingCentre trainingCentre = new TrainingCentre();
         WaitingListImpl waitingListObj = WaitingListImpl.getWaitingListObj();
         Trainee trainee = new Trainee();
 
-        for(int i = 0; i < 20; i ++){
+        for(int i = 0; i < 50; i ++){
             waitingListObj.push(trainee);
         }
 
@@ -50,7 +50,7 @@ class TrainingCentreManagerImplTest {
         ArrayList<Trainee> expectedTraineeList = trainingCentre.getTraineesList();
 
         System.out.println(expectedTraineeList.size());
-        Assertions.assertTrue(expectedTraineeList.size()<=20);
+        Assertions.assertTrue(expectedTraineeList.size()<=50);
     }
 
     @Test
