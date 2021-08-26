@@ -11,6 +11,12 @@ public class TrainingCentreManagerImpl implements TrainingCentreManager {
     private ArrayList<TrainingCentreDTO> fullTrainingCentreDTOS = new ArrayList<>();
     private ArrayList<TrainingCentreDTO> availableTrainingCentreDTOS = new ArrayList<>();
 
+    private ArrayList<Bootcamp> availableBootcamps;
+    private ArrayList<Bootcamp> fullBootcamps;
+
+    private ArrayList<TrainingHub> availableTrainingHubs;
+    private ArrayList<TrainingHub> fullTrainingHubs;
+
 
     @Override
     public int getAvailability(TrainingCentreDTO trainingCentreDTO) {
