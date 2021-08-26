@@ -24,6 +24,7 @@ public class DisplayManager implements Displayable{
         printFullCentres(fullCentres);
         printNotFullCentres(notFullCentres);
         printMonthsPassed(monthsPassed);
+        System.out.println();
     }
 
     private void printFullCentres(int fullCentres) {
@@ -53,6 +54,10 @@ public class DisplayManager implements Displayable{
 
     private void printMonthsPassed(int monthsPassed) {
         System.out.println("After: " + monthsPassed + " months");
+    }
+
+    public static void printMonthlyOutputPrompt() {
+        System.out.println("Do you want the simulation to output the result of each month? Y/N");
     }
 
 }

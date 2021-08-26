@@ -11,22 +11,30 @@ import java.util.List;
 
 public class SimulatorManager {
 
-    Displayable displayManager = new DisplayManager();
-    TrainingCentreManagerImpl trainingCentreManager = new TrainingCentreManagerImpl();
-    TraineeGeneratorClass traineeGenerator = new TraineeGeneratorClass();
+    private Displayable displayManager = new DisplayManager();
+     TrainingCentreManagerImpl trainingCentreManager = new TrainingCentreManagerImpl();
+    private TraineeGeneratorClass traineeGenerator = new TraineeGeneratorClass();
 
-    WaitingListImpl waitingList;
+    private WaitingListImpl waitingList;
+
+    private boolean monthlyOutput;
 
     public void run() {
 
         waitingList = WaitingListImpl.getWaitingListObj();
         int simulationDuration;
+        boolean monthlyOutput = false;
 
         //TODO: Take input
             //Output frequency
 
         //DisplayManager.askForInput();
-        simulationDuration = InputManager.getSimulationDuration();
+
+        do {
+            simulationDuration = InputManager.getSimulationDuration();
+        } while(simulationDuration == -1);
+
+        monthlyOutput = InputManager.isMonthlyOutputWanted();
 
         displayManager.printGetMonths(simulationDuration);
 
@@ -55,25 +63,20 @@ public class SimulatorManager {
             //Closing training centres
 
             //TODO: Monthly Output
-
-/*                displayManager.printSimulationResults(
+            //Don't do a monthly output on the last month - handled by end of simulation output
+            if(monthlyOutput && i > 1) {
+                displayManager.printSimulationResults(
                         //Closed centres + available centres = all centres
-                        (trainingCentreManager.getAvailableCentres().size()
-                                + trainingCentreManager.getFullCentres().size()),
+                        trainingCentreManager.getAllTrainingCentreDTOS().size(),
                         trainingCentreManager.getFullCentres().size(),
                         this.waitingList.getTrainees().size(),
-                        i,
-                        trainingCentreManager.getAllTrainingCentreDTOS().size(),
+                        (simulationDuration - i) + 1,
+                        getNumberOfTraineesInTraining(),
                         trainingCentreManager.getAvailableCentres().size()
-                );*/
-
+                );
             }
 
-        int inTraining = 0;
-        ArrayList<TrainingCentreDTO> centres = trainingCentreManager.getAllTrainingCentreDTOS();
-        for (TrainingCentreDTO centreDTO : centres) {
-            inTraining += centreDTO.getTraineesList().size();
-        }
+            }
 
         displayManager.printSimulationResults(
                 //Closed centres + available centres = all centres
@@ -81,9 +84,19 @@ public class SimulatorManager {
                 trainingCentreManager.getFullCentres().size(),
                 this.waitingList.getTrainees().size(),
                 simulationDuration,
-                inTraining,
+                getNumberOfTraineesInTraining(),
                 trainingCentreManager.getAvailableCentres().size()
         );
 
+    }
+
+    private int getNumberOfTraineesInTraining() {
+        int inTraining = 0;
+        ArrayList<TrainingCentreDTO> centres = trainingCentreManager.getAllTrainingCentreDTOS();
+        for (TrainingCentreDTO centreDTO : centres) {
+            inTraining += centreDTO.getTraineesList().size();
+        }
+
+        return inTraining;
     }
 }
