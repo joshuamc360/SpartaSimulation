@@ -11,9 +11,10 @@ public class WaitingListImplTest {
     @DisplayName("Pop waiting List returns a trainee")
     void popReturnsTrainee(){
         ArrayList<Trainee> traineeList = new ArrayList<>();
-        traineeList.add(new Trainee());
+        WaitingListImpl waitingListObj = WaitingListImpl.getWaitingListObj();
+        waitingListObj.push(new Trainee());
 
-        Trainee trainee = WaitingListImpl.pop(traineeList);
+        Trainee trainee = waitingListObj.pop();
         Assertions.assertEquals("Created", trainee.getState());
     }
 
@@ -21,14 +22,14 @@ public class WaitingListImplTest {
     @DisplayName("20 trainees should be added to the waiting list")
     void traineesAddedToWaitingList(){
         Trainee trainee = new Trainee();
-        new WaitingListImpl();
+        WaitingListImpl waitingListObject = WaitingListImpl.getWaitingListObj();
+        ArrayList<Trainee> waitingList = waitingListObject.getTrainees();
         for(int i = 0; i < 20; i ++){
-            WaitingListImpl.push(trainee);
+            waitingListObject.push(trainee);
         }
-        ArrayList<Trainee> traineesInWaitingList = WaitingListImpl.getTrainees();
 
         int actualTraineesInWaitingListSize = 20;
 
-        Assertions.assertEquals(actualTraineesInWaitingListSize, traineesInWaitingList.size());
+        Assertions.assertEquals(actualTraineesInWaitingListSize, waitingList.size());
     }
 }

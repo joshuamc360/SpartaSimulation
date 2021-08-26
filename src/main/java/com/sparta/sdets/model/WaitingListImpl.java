@@ -3,24 +3,31 @@ package com.sparta.sdets.model;
 import java.util.ArrayList;
 
 public class WaitingListImpl{
-    private static ArrayList<Trainee> waitingListTrainees;
+    private static WaitingListImpl waitingListObject = new WaitingListImpl();
+    private static ArrayList<Trainee> waitingListTrainees = new ArrayList<>();
 
     //not sure
-    public WaitingListImpl(){
-        waitingListTrainees = new ArrayList<>();
+    private WaitingListImpl(){}
+
+    public static WaitingListImpl getWaitingListObj(){
+        if(waitingListObject == null){
+            waitingListObject = new WaitingListImpl ();
+        }
+        return waitingListObject ;
     }
 
-    public static Trainee pop(ArrayList<Trainee> TraineeList) {
-        int lastPositionInList = TraineeList.size()-1;
-        Trainee trainee = TraineeList.get(lastPositionInList);
+    public Trainee pop() {
+        int lastPositionInList = waitingListTrainees.size()-1;
+        Trainee trainee = waitingListTrainees.get(lastPositionInList);
+        waitingListTrainees.remove(waitingListTrainees.size()-1);
         return trainee;
     }
 
-    public static void push(Trainee trainee) {
+    public void push(Trainee trainee) {
         waitingListTrainees.add(trainee);
     }
 
-    public static ArrayList<Trainee> getTrainees() {
+    public ArrayList<Trainee> getTrainees() {
         return waitingListTrainees;
     }
 }

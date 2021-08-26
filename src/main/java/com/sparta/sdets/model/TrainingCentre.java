@@ -12,7 +12,7 @@ public class TrainingCentre implements TrainingCentreDTO{
 
     @Override
     public int getCapacity() {
-        return 0;
+        return 100 - this.traineesListInCentre.size();
     }
 
     @Override
@@ -28,10 +28,16 @@ public class TrainingCentre implements TrainingCentreDTO{
     public void addTraineesToCentre(){
         RandomNumberGenerator randomNumberGenerator = new RandomNumberGenerator();
         int randomNumber = randomNumberGenerator.getRandomNumber(0,20);
-        ArrayList<Trainee> traineesInWaitingList = WaitingListImpl.getTrainees();
+
+        WaitingListImpl waitingListObject = WaitingListImpl.getWaitingListObj();
+        ArrayList<Trainee> traineesInWaitingList = waitingListObject.getTrainees();
+
+        if(randomNumber>traineesInWaitingList.size()){
+            randomNumber = traineesInWaitingList.size();
+        }
 
         for(int i = 0; i < randomNumber; i++){
-            Trainee trainee = WaitingListImpl.pop(traineesInWaitingList);
+            Trainee trainee = waitingListObject.pop();
             addToQueue(trainee);
         }
     }
