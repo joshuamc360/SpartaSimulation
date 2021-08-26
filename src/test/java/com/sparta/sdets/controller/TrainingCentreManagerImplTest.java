@@ -56,7 +56,7 @@ class TrainingCentreManagerImplTest {
     @Test
     public void addNewCentreTest(){
         int size1 = trainingCentreManager.getAllTrainingCentreDTOS().size();
-        trainingCentreManager.addNewCentreToList();
+        trainingCentreManager.createCentre();
         int size2 = trainingCentreManager.getAllTrainingCentreDTOS().size();
         Assertions.assertEquals(size1 + 1, size2);
     }
@@ -64,7 +64,7 @@ class TrainingCentreManagerImplTest {
     @Test
     @DisplayName("Tests getFullCentres, getAvailableCentres, getAllTrainingCentresDTOS")
     public void getCentresTest(){
-        trainingCentreManager.addNewCentreToList();
+        trainingCentreManager.createCentre();
         int full = trainingCentreManager.getFullCentres().size();
         int available = trainingCentreManager.getAvailableCentres().size();
         int all = trainingCentreManager.getAllTrainingCentreDTOS().size();
