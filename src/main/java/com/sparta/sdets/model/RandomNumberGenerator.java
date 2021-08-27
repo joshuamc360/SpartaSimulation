@@ -8,4 +8,12 @@ public class RandomNumberGenerator {
             return (int) Math.floor(Math.random() * (upperBound - lowerBound + 1) + lowerBound);
         }
     }
+
+    public static String getTrainingCentreType(int lowerBound, int upperBound) {
+        if(getRandomNumber(lowerBound, upperBound) == 1) {
+            return "BootCamp";
+        } else {
+            return "TrainingHub";
+        }
+    }
 }

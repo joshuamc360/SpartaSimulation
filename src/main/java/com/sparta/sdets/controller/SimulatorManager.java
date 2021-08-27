@@ -5,29 +5,39 @@ import com.sparta.sdets.model.WaitingListImpl;
 import com.sparta.sdets.view.DisplayManager;
 import com.sparta.sdets.view.Displayable;
 import com.sparta.sdets.view.InputManager;
-import com.sparta.sdets.view.Inputable;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class SimulatorManager {
 
-    Displayable displayManager = new DisplayManager();
-    TrainingCentreManagerImpl trainingCentreManager = new TrainingCentreManagerImpl();
-    TraineeGeneratorClass traineeGenerator = new TraineeGeneratorClass();
+    private DisplayManager displayManager = new DisplayManager();
+     TrainingCentreManagerImpl trainingCentreManager = new TrainingCentreManagerImpl();
+    private TraineeGeneratorClass traineeGenerator = new TraineeGeneratorClass();
+    private static int centresRemoved = 0;
+    private static int bootCampsRemoved = 0;
+    private static int trainingCentresRemoved = 0;
 
-    WaitingListImpl waitingList;
+    private WaitingListImpl waitingList;
+
+    private boolean monthlyOutput;
 
     public void run() {
 
         waitingList = WaitingListImpl.getWaitingListObj();
         int simulationDuration;
+        boolean monthlyOutput = false;
 
         //TODO: Take input
             //Output frequency
 
         //DisplayManager.askForInput();
-        simulationDuration = InputManager.getSimulationDuration();
+
+        do {
+            simulationDuration = InputManager.getSimulationDuration();
+        } while(simulationDuration == -1);
+
+        monthlyOutput = InputManager.isMonthlyOutputWanted();
 
         displayManager.printGetMonths(simulationDuration);
 
@@ -44,8 +54,14 @@ public class SimulatorManager {
 
             //Generating training centres
             if((simulationDuration - i) % 2 == 0) {
-                //System.out.println(i + " creating new training centre");
-                trainingCentreManager.createCentre();
+                //If max number of boot
+                String centreType;
+                if(Bootcamp.getBootcampCount() >= Bootcamp.getBootcampLimit()) {
+                    centreType = RandomNumberGenerator.getTrainingCentreType(2, 2);
+                } else {
+                    centreType = RandomNumberGenerator.getTrainingCentreType(1, 2);
+                }
+                trainingCentreManager.createCentre(centreType);
             }
 
             //Allocating trainees to available centres
@@ -55,36 +71,80 @@ public class SimulatorManager {
             //Checking training centres
             //Closing training centres
 
-            //TODO: Monthly Output
-
-/*                displayManager.printSimulationResults(
-                        //Closed centres + available centres = all centres
-                        (trainingCentreManager.getAvailableCentres().size()
-                                + trainingCentreManager.getFullCentres().size()),
-                        trainingCentreManager.getFullCentres().size(),
-                        this.waitingList.getTrainees().size(),
-                        i,
-                        trainingCentreManager.getAllTrainingCentreDTOS().size(),
-                        trainingCentreManager.getAvailableCentres().size()
-                );*/
-
+            //Start removing centres 3 months in
+            if(i <= simulationDuration - 2) {
+                removeLowTraineesCentres();
             }
 
-        int inTraining = 0;
-        ArrayList<TrainingCentreDTO> centres = trainingCentreManager.getAllTrainingCentreDTOS();
-        for (TrainingCentreDTO centreDTO : centres) {
-            inTraining += centreDTO.getQueue().size();
+            //TODO: Monthly Output
+            //Don't do a monthly output on the last month - handled by end of simulation output
+            if(monthlyOutput && i > 1) {
+                displayManager.printSimulationResults(
+                        trainingCentreManager.getAllTrainingCentreDTOS().size(),
+                        trainingCentreManager.getFullBootCamps().size(),
+                        trainingCentreManager.getFullTrainingHubs().size(),
+                        WaitingListImpl.getWaitingListObj().getTrainees().size(),
+                        (simulationDuration - i) + 1,
+                        getNumberOfTraineesInTraining(),
+                        trainingCentreManager.getAvailableBootCamps().size(),
+                        trainingCentreManager.getAvailableTrainingHubs().size(),
+                        bootCampsRemoved,
+                        trainingCentresRemoved
+                );
+            }
         }
 
         displayManager.printSimulationResults(
-                //Closed centres + available centres = all centres
                 trainingCentreManager.getAllTrainingCentreDTOS().size(),
-                trainingCentreManager.getFullCentres().size(),
-                this.waitingList.getTrainees().size(),
+                trainingCentreManager.getFullBootCamps().size(),
+                trainingCentreManager.getFullTrainingHubs().size(),
+                WaitingListImpl.getWaitingListObj().getTrainees().size(),
                 simulationDuration,
-                inTraining,
-                trainingCentreManager.getAvailableCentres().size()
+                getNumberOfTraineesInTraining(),
+                trainingCentreManager.getAvailableBootCamps().size(),
+                trainingCentreManager.getAvailableTrainingHubs().size(),
+                bootCampsRemoved,
+                trainingCentresRemoved
         );
+    }
 
+    protected void removeLowTraineesCentres(){
+        ArrayList<TrainingCentreDTO> totalCentres = trainingCentreManager.getAllTrainingCentreDTOS();
+        ArrayList<TrainingCentreDTO> clone = new ArrayList<>();
+        for(TrainingCentreDTO trainingCentreDTO: totalCentres){
+            clone.add(trainingCentreDTO);
+        }
+        for(TrainingCentreDTO centre: clone){
+            ArrayList<Trainee> traineesToRemove = centre.getTraineesList();
+            if(traineesToRemove.size()<25){
+                WaitingListImpl waitingList = WaitingListImpl.getWaitingListObj();
+                for(Trainee trainee: traineesToRemove){
+                    waitingList.pushToFrontOfTheQueue(trainee);
+                }
+
+                trainingCentreManager.removeFromTotalCentres(centre);
+
+                if(centre.getClass().getName().toLowerCase().contains("bootcamp")) {
+                    if(((Bootcamp) centre).getNumMonthsUnderTwentyFiveCounter() >= 3) {
+                        bootCampsRemoved++;
+                        trainingCentreManager.removeFromAvailbleBootCamps((Bootcamp) centre);
+                    }
+                } else {
+                    trainingCentresRemoved++;
+                    trainingCentreManager.removeFromAvailbleTrainingHubs((TrainingHub) centre);
+                }
+
+            }
+        }
+    }
+
+    private int getNumberOfTraineesInTraining() {
+        int inTraining = 0;
+        ArrayList<TrainingCentreDTO> centres = trainingCentreManager.getAllTrainingCentreDTOS();
+        for (TrainingCentreDTO centreDTO : centres) {
+            inTraining += centreDTO.getTraineesList().size();
+        }
+
+        return inTraining;
     }
 }
