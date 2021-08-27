@@ -17,13 +17,6 @@ import java.util.Scanner;
 
 public class SimulatorManagerTests extends SimulatorManager{
 
-    private SimulatorManager simulatorManager;
-//    private static Scanner scanner;
-
-    @BeforeEach
-    void setup() {
-        simulatorManager = new SimulatorManager();
-    }
     /*
 
     @Test
@@ -128,5 +121,4 @@ public class SimulatorManagerTests extends SimulatorManager{
         int trainingCentresOpen = trainingCentreManager.getAvailableCentres().size();
         Assertions.assertEquals(0, trainingCentresOpen);
     }*/
-
 }
