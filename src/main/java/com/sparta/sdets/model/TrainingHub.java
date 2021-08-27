@@ -14,5 +14,6 @@ public class TrainingHub extends TrainingCentre {
     @Override
     public int getRemainingSpace() {
         return capacity - super.getTraineesList().size();
+
     }
 }
