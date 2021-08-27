@@ -2,25 +2,21 @@ package com.sparta.sdets.model;
 
 import java.util.ArrayList;
 
-public class TrainingCentre implements TrainingCentreDTO{
-    private ArrayList<Trainee> traineesListInCentre;
-    private final static int CAPACITY = 100;
+public abstract class TrainingCentre implements TrainingCentreDTO{
+
+    protected ArrayList<Trainee> traineesListInCentre;
 
     public TrainingCentre(){
         traineesListInCentre = new ArrayList<>();
     }
 
     @Override
-    public int getCapacity() {
-        return CAPACITY;
-    }
+    public abstract int getCapacity();
 
-    public int getRemainingSpace() {
-        return CAPACITY - this.traineesListInCentre.size();
-    }
+    public abstract int getRemainingSpace();
 
     @Override
-    public ArrayList getTraineesList() {
+    public ArrayList<Trainee> getTraineesList() {
         return this.traineesListInCentre;
     }
 

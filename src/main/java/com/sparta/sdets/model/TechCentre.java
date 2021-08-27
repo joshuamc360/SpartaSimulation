@@ -1,4 +1,5 @@
 package com.sparta.sdets.model;
 
-public class TrainingHubTest {
+public class TechCentre {
+
 }
