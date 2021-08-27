@@ -22,7 +22,7 @@ public class InputManager {/*implements Inputable{
             months = sanitiser.boundingCheck(months);
         }catch (Exception e){
             DisplayManager.invalidInput();
-            getSimulationDuration();
+            months = getSimulationDuration();
         }
         //input.close();
         return months;
